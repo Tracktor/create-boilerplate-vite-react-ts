@@ -7,7 +7,7 @@ const path = require("path");
 const projectName = process.argv[2];
 const currentPath = process.cwd();
 const projectPath = path.join(currentPath, projectName);
-const repository = "https://github.com/Tracktor/boilerplate-vite-react-ts.git";
+const repository = "https://github.com/Tracktor/boilerplate-vite-react-ts";
 
 if (process.argv.length < 3) {
   console.log("\x1b[31m", "You have to provide name to your app.");
