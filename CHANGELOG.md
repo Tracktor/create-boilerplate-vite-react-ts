@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/eslint-config-react-tracktor/releases)
 
-## v0.0.5
-- Change repository name
+## v0.0.6
+- readme
+- fix import create script
