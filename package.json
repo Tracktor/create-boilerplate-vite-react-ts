@@ -1,0 +1,27 @@
+{
+  "name": "boilerplate-vite-react-ts",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "bin": {
+    "create-boilerplate": "bin/generate-app.ts"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . && tsc --noEmit",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.24",
+    "@types/react-dom": "^18.0.8",
+    "@vitejs/plugin-react": "^2.2.0",
+    "eslint-config-react-tracktor": "^1.0.4",
+    "typescript": "^4.6.4",
+    "vite": "^3.2.3"
+  }
+}
