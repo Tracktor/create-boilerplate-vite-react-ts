@@ -23,6 +23,7 @@
     "@vitejs/plugin-react": "^2.2.0",
     "eslint-config-react-tracktor": "^1.0.4",
     "typescript": "^4.6.4",
-    "vite": "^3.2.3"
+    "vite": "^3.2.3",
+    "vitest": "^0.25.3"
   }
 }
