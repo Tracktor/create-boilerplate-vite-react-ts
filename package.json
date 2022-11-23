@@ -1,7 +1,7 @@
 {
   "name": "boilerplate-vite-react-ts",
   "private": false,
-  "version": "0.0.12",
+  "version": "0.0.13",
   "type": "module",
   "bin": {
     "create-boilerplate": "bin/create-app.ts"
