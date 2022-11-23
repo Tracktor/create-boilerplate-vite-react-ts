@@ -2,6 +2,7 @@
   "name": "create-boilerplate-vite-react-ts",
   "description": "Tracktor boilerplate vite react ts",
   "private": false,
+  "license": "ISC",
   "version": "1.0.0",
   "type": "module",
   "bin": {
@@ -13,17 +14,23 @@
     "build": "tsc && vite build",
     "lint": "eslint . && tsc --noEmit",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "prepare": "husky install"
   },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
     "@vitejs/plugin-react": "^2.2.0",
     "eslint-config-react-tracktor": "^1.0.4",
+    "husky": "^8.0.0",
+    "jsdom": "^20.0.3",
     "typescript": "^4.6.4",
     "vite": "^3.2.3",
     "vitest": "^0.25.3"
