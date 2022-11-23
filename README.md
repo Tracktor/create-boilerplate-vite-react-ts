@@ -1,4 +1,4 @@
-# boilerplate-vite-react-ts
+# create-boilerplate-vite-react-ts
 
 Create a Vite React TS apps with set of Tracktor configuration.
 
@@ -7,5 +7,5 @@ Create a Vite React TS apps with set of Tracktor configuration.
 ## Quick Start
 
 ```console
-npx boilerplate-vite-react-ts YOUR_PROJECT_NAME
+npx create-boilerplate-vite-react-ts YOUR_PROJECT_NAME
 ```

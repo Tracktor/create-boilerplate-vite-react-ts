@@ -1,12 +1,12 @@
 #! /usr/bin/env node
 
 import { execSync } from "child_process";
-import fs from "fs";
-import path from "path";
+import { mkdirSync, rmdirSync } from "fs";
+import { join } from "path";
 
 const projectName = process.argv[2];
 const currentPath = process.cwd();
-const projectPath = path.join(currentPath, projectName);
+const projectPath = join(currentPath, projectName);
 const repository = "https://github.com/Tracktor/boilerplate-vite-react-ts";
 
 if (process.argv.length < 3) {
@@ -17,9 +17,9 @@ if (process.argv.length < 3) {
 }
 
 try {
-  fs.mkdirSync(projectPath);
-} catch (error) {
-  if (error.code === "EEXIST") {
+  mkdirSync(projectPath);
+} catch (error: any) {
+  if (error?.code === "EEXIST") {
     console.log(`The file ${projectName} already exist in the current directory, please give it another name.`);
   } else {
     console.log(error);
@@ -35,11 +35,11 @@ async function main() {
     process.chdir(projectPath);
 
     console.log("Installing dependencies...");
-    execSync("npm install");
+    execSync("yarn install");
 
     console.log("Removing useless files");
     execSync("npx rimraf ./.git");
-    fs.rmdirSync(path.join(projectPath, "bin"), { recursive: true });
+    rmdirSync(join(projectPath, "bin"), { recursive: true });
 
     console.log("The installation is done, this is ready to use !");
   } catch (error) {
@@ -47,4 +47,4 @@ async function main() {
   }
 }
 
-main();
+main().then();
