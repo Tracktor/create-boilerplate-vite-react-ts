@@ -2,10 +2,10 @@
   "name": "boilerplate-vite-react-ts",
   "description": "Tracktor boilerplate vite react ts",
   "private": false,
-  "version": "0.0.24",
+  "version": "0.0.25",
   "type": "module",
   "bin": {
-    "boilerplate-vite-react-ts": "bin/create-app.js"
+    "boilerplate-vite-react-ts": "bin/create-app.cjs"
   },
   "scripts": {
     "dev": "vite",
