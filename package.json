@@ -1,5 +1,6 @@
 {
   "name": "boilerplate-vite-react-ts",
+  "description": "Tracktor boilerplate vite react ts",
   "private": false,
   "version": "0.0.24",
   "type": "module",
