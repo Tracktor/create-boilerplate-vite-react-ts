@@ -1,8 +1,7 @@
-#!/usr/bin/env ts-node
-
-import { execSync } from "child_process";
-import { mkdirSync, rmdirSync } from "fs";
-import { join } from "path";
+#!/usr/bin/env node
+const { execSync } = require("child_process");
+const { mkdirSync, rmdirSync } = require("fs");
+const { join } = require("path");
 
 const projectName = process.argv[2];
 const currentPath = process.cwd();
@@ -18,7 +17,7 @@ if (process.argv.length < 3) {
 
 try {
   mkdirSync(projectPath);
-} catch (error: any) {
+} catch (error) {
   if (error?.code === "EEXIST") {
     console.log(`The file ${projectName} already exist in the current directory, please give it another name.`);
   } else {
@@ -29,10 +28,6 @@ try {
 
 async function main() {
   try {
-    console.log("Installing ts-node...");
-    execSync("npm install -g ts-node");
-    execSync("npm install -g typescript");
-
     console.log("Downloading files...");
     execSync(`git clone --depth 1 ${repository} ${projectPath}`);
 
