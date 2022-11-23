@@ -28,24 +28,24 @@ try {
 
 async function main() {
   try {
-    console.log("Downloading files...");
+    console.log("\x1b[36m%s\x1b[0m", "Downloading files...");
     execSync(`git clone --depth 1 ${repository} ${projectPath}`);
 
     process.chdir(projectPath);
 
-    console.log("Installing dependencies...");
+    console.log("\x1b[36m%s\x1b[0m", "Installing dependencies...");
     execSync("yarn install");
 
-    console.log("Removing useless files");
+    console.log("\x1b[36m%s\x1b[0m", "Removing useless files");
     execSync("npx rimraf ./.git");
     rmSync(join(projectPath, "bin"), { recursive: true });
     rmSync(join(projectPath, ".circleci"), { recursive: true });
     rmSync(join(projectPath, "CHANGELOG.md"), { recursive: true });
 
-    console.log("Create empty README.md");
+    console.log("\x1b[36m%s\x1b[0m", "Create empty README.md");
     openSync("README.md", 'w');
 
-    console.log("\\033[32m The installation is done, this is ready to use ! \\033[0m");
+    console.log("\x1b[32m%s\x1b[0m", "Your app installation is done, this is ready to use !");
   } catch (error) {
     console.log(error);
   }
