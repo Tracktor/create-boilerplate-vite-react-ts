@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { execSync } = require("child_process");
-const { mkdirSync, rmdirSync } = require("fs");
+const { mkdirSync, rmdirSync, openSync } = require("fs");
 const { join } = require("path");
 
 const projectName = process.argv[2];
@@ -39,8 +39,12 @@ async function main() {
     console.log("Removing useless files");
     execSync("npx rimraf ./.git");
     rmdirSync(join(projectPath, "bin"), { recursive: true });
+    rmdirSync(join(projectPath, ".circleci"), { recursive: true });
 
-    console.log("The installation is done, this is ready to use !");
+    console.log("Create empty README.md");
+    openSync("README.md", 'w');
+
+    console.log("\\033[32m The installation is done, this is ready to use ! \\033[0m");
   } catch (error) {
     console.log(error);
   }
