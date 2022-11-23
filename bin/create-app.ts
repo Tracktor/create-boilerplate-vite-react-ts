@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
 import { execSync } from "child_process";
 import { mkdirSync, rmdirSync } from "fs";
