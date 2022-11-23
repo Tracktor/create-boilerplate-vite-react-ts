@@ -4,7 +4,7 @@
   "version": "0.0.12",
   "type": "module",
   "bin": {
-    "create-boilerplate": "bin/create-app.js"
+    "create-boilerplate": "bin/create-app.ts"
   },
   "scripts": {
     "dev": "vite",

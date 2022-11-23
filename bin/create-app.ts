@@ -1,8 +1,8 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
-const { execSync } = require("child_process");
-const { mkdirSync, rmdirSync } = require("fs");
-const { join } = require("path");
+import { execSync } from "child_process";
+import { mkdirSync, rmdirSync } from "fs";
+import { join } from "path";
 
 const projectName = process.argv[2];
 const currentPath = process.cwd();
@@ -18,7 +18,7 @@ if (process.argv.length < 3) {
 
 try {
   mkdirSync(projectPath);
-} catch (error) {
+} catch (error: any) {
   if (error?.code === "EEXIST") {
     console.log(`The file ${projectName} already exist in the current directory, please give it another name.`);
   } else {
