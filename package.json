@@ -1,10 +1,10 @@
 {
   "name": "boilerplate-vite-react-ts",
   "private": false,
-  "version": "0.0.11",
+  "version": "0.0.12",
   "type": "module",
   "bin": {
-    "create-boilerplate": "bin/create-app.ts"
+    "create-boilerplate": "bin/create-app.js"
   },
   "scripts": {
     "dev": "vite",
