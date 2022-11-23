@@ -1,7 +1,7 @@
 #!/usr/bin/env node
-const {execSync} = require("child_process");
-const {mkdirSync, rmSync, openSync, writeFileSync} = require("fs");
-const {join} = require("path");
+const { execSync } = require("child_process");
+const { mkdirSync, rmSync, openSync, writeFileSync } = require("fs");
+const { join } = require("path");
 const packageJson = require('../package.json');
 
 const projectName = process.argv[2];
@@ -28,7 +28,6 @@ try {
 }
 
 const buildPackageJson = (packageJson, folderName) => {
-
   const {
     bin,
     keywords,
