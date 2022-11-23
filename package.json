@@ -8,10 +8,12 @@
     "create-boilerplate-vite-react-ts": "bin/create-app.cjs"
   },
   "scripts": {
+    "coverage": "vitest run --coverage",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . && tsc --noEmit",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "react": "^18.2.0",
