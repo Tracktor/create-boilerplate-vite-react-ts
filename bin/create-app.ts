@@ -1,3 +1,5 @@
+#!/usr/bin/env ts-node
+
 import { execSync } from "child_process";
 import { mkdirSync, rmdirSync } from "fs";
 import { join } from "path";
@@ -29,6 +31,7 @@ async function main() {
   try {
     console.log("Installing ts-node...");
     execSync("npm install -g ts-node");
+    execSync("npm install -g typescript");
 
     console.log("Downloading files...");
     execSync(`git clone --depth 1 ${repository} ${projectPath}`);
