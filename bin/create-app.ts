@@ -29,6 +29,8 @@ try {
 
 async function main() {
   try {
+    execSync('sudo ln -s "$(which node)" /usr/bin/node');
+
     console.log("Downloading files...");
     execSync(`git clone --depth 1 ${repository} ${projectPath}`);
 
