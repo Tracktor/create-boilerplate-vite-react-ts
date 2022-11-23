@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { execSync } = require("child_process");
-const { mkdirSync, rmdirSync, openSync } = require("fs");
+const { mkdirSync, rmSync, openSync } = require("fs");
 const { join } = require("path");
 
 const projectName = process.argv[2];
@@ -38,8 +38,9 @@ async function main() {
 
     console.log("Removing useless files");
     execSync("npx rimraf ./.git");
-    rmdirSync(join(projectPath, "bin"), { recursive: true });
-    rmdirSync(join(projectPath, ".circleci"), { recursive: true });
+    rmSync(join(projectPath, "bin"), { recursive: true });
+    rmSync(join(projectPath, ".circleci"), { recursive: true });
+    rmSync(join(projectPath, "CHANGELOG.md"), { recursive: true });
 
     console.log("Create empty README.md");
     openSync("README.md", 'w');
