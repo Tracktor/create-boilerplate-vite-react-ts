@@ -14,12 +14,22 @@ npx create-boilerplate-vite-react-ts YOUR_PROJECT_NAME
 ## Files structure
 
 ```
-root
+├── .husky
+    pre-commit
 ├── public
+    favicon.ico
 └── src
     └── assets
     └── components
+        └── DataDisplay
+        └── Feedback
+        └── Inputs
+        └── Layout
+        └── Navigation
+        └── Surfaces
+        └── Utils
     └── config
+        setupTests.ts
     └── constants
     └── context
     └── features
@@ -27,6 +37,21 @@ root
     └── locales
     └── pages
     └── services
+    └── stores
     └── types
+        vite-env.d.ts
     └── utils
+    App.test.tsx
+    App.tsx
+.eslintignore
+.eslintrc.json
+.gitignore
+index.html
+index.tsx
+package.json
+README.md
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
+yarn.lock
 ```
