@@ -3,7 +3,7 @@
   "description": "Tracktor boilerplate vite react ts",
   "private": false,
   "license": "ISC",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "type": "module",
   "bin": {
     "create-boilerplate-vite-react-ts": "bin/create-app.cjs"

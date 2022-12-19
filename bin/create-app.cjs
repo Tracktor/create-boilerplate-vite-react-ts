@@ -57,8 +57,9 @@ const main = async () => {
 
     console.log("\x1b[36m%s\x1b[0m", "Removing useless files");
     execSync("npx rimraf ./.git");
-    rmSync(join(projectPath, "bin"), {recursive: true});
+    rmSync(join(projectPath, ".github"), {recursive: true});
     rmSync(join(projectPath, ".circleci"), {recursive: true});
+    rmSync(join(projectPath, "bin"), {recursive: true});
     rmSync(join(projectPath, "CHANGELOG.md"), {recursive: true});
 
 
