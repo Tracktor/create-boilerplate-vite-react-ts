@@ -1,5 +1,7 @@
 # [Versions](https://github.com/Tracktor/eslint-config-react-tracktor/releases)
 
-## v1.0.4
+## v1.0.5
 
-- Add favicon
+- Upgrade dev dependencies
+- Add pull request template
+- Add categories components 
