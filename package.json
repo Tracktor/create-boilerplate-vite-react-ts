@@ -3,7 +3,7 @@
   "description": "Tracktor boilerplate vite react ts",
   "private": false,
   "license": "ISC",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "type": "module",
   "bin": {
     "create-boilerplate-vite-react-ts": "bin/create-app.cjs"
@@ -12,7 +12,7 @@
     "coverage": "vitest run --coverage",
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . && tsc --noEmit",
+    "lint": "eslint . --max-warnings=0 && tsc --noEmit",
     "preview": "vite preview",
     "test": "yarn lint && vitest",
     "prepare": "husky install"
