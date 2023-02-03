@@ -18,7 +18,10 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "importsNotUsedAsValues": "error",
+    "noUnusedParameters": true,
     "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
     "jsx": "react-jsx",
     "paths": {
       "@/*": [
