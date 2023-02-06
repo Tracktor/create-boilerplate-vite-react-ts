@@ -27,6 +27,7 @@ npx create-boilerplate-vite-react-ts YOUR_PROJECT_NAME
         └── Layout
         └── Navigation
         └── Surfaces
+        └── Template
         └── Utils
     └── config
         setupTests.ts
