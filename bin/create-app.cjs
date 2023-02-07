@@ -31,7 +31,6 @@ const buildPackageJson = (packageJson, folderName) => {
   const {
     bin,
     keywords,
-    license,
     homepage,
     repository,
     bugs,
@@ -40,7 +39,7 @@ const buildPackageJson = (packageJson, folderName) => {
     ...packageJsonFilter
   } = packageJson
 
-  const newPackage = {...packageJsonFilter, name: folderName}
+  const newPackage = {...packageJsonFilter, name: folderName, license : "UNLICENSED"}
 
   writeFileSync(`${process.cwd()}/package.json`, JSON.stringify(newPackage, null, 2), 'utf8');
 };
