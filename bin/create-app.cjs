@@ -77,20 +77,20 @@ const removeUselessFiles = () => {
 
   // Remove i18next files
   if (!yargs.argv?.[I18NEXT_PARAM]) {
-    rmSync(join(projectPath, "config/i18next.ts"), { recursive: true });
-    rmSync(join(projectPath, "locales/en.ts"), { recursive: true });
-    rmSync(join(projectPath, "locales/fr.ts"), { recursive: true });
-    rmSync(join(projectPath, "types/i18next.d.ts"), { recursive: true });
+    rmSync(join(projectPath, "src/config/i18next.ts"), { recursive: true });
+    rmSync(join(projectPath, "src/locales/en.ts"), { recursive: true });
+    rmSync(join(projectPath, "src/locales/fr.ts"), { recursive: true });
+    rmSync(join(projectPath, "src/types/i18next.d.ts"), { recursive: true });
   }
 
   // Remove axios files
   if (!yargs.argv?.[AXIOS_PARAM]) {
-    rmSync(join(projectPath, "config/axios.ts"), { recursive: true });
+    rmSync(join(projectPath, "src/config/axios.ts"), { recursive: true });
   }
 
   // Remove react query files
   if (!yargs.argv?.[REACT_QUERY_PARAM]) {
-    rmSync(join(projectPath, "config/reactQuery.ts"), { recursive: true });
+    rmSync(join(projectPath, "src/config/reactQuery.ts"), { recursive: true });
   }
 };
 
@@ -113,7 +113,7 @@ const getAppData = () => {
       `const App = () => <QueryClientProvider client={reactQuery}>${packageJson.description}</QueryClientProvider>;`
     )
   } else {
-    data.push(`\n\nconst App = () => <>${packageJson.description}</>;`);
+    data.push(`const App = () => <>${packageJson.description}</>;`);
   }
 
   data.push(`\n\nexport default App;`)
