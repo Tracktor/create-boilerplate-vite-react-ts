@@ -17,7 +17,7 @@ application with amazing configuration.
   utilities
 - 🐶 **[Husky](https://typicode.github.io/husky)** - Modern native git hooks made easy
 - 📐 **[ESLint](https://eslint.org)** - Code analyzer
-- 🚜 **[eslint-config-react-tracktor](https://eslint.org)** - Simply the best eslint config for React
+- 🚜 **[eslint-config-react-tracktor](https://www.npmjs.com/package/eslint-config-react-tracktor)** - Simply the best eslint config for React
 
 ## Quick Start
 

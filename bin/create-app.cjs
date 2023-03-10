@@ -34,6 +34,7 @@ try {
 }
 
 const buildPackageJson = ({packageJson, folderName, argv}) => {
+  // Filters package.json
   const {
     bin,
     keywords,
@@ -45,7 +46,7 @@ const buildPackageJson = ({packageJson, folderName, argv}) => {
     ...packageJsonFilter
   } = packageJson
 
-  // Manage dependencies
+  // Filters dependencies
   const {
     yargs,
     [!argv?.[AXIOS_PARAM] && "axios"]: axiosRemoved,
@@ -56,12 +57,21 @@ const buildPackageJson = ({packageJson, folderName, argv}) => {
     ...dependenciesFilter
   } = packageJson.dependencies
 
+  // Filters scripts
+  const {
+    create,
+    ...scriptFilter
+  } = packageJson.scripts
+
   const newPackage = {
     ...packageJsonFilter,
     name: folderName,
     license: "UNLICENSED",
     dependencies: {
       ...dependenciesFilter,
+    },
+    scripts: {
+      ...scriptFilter,
     }
   }
 
