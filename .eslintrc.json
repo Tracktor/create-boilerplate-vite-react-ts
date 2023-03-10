@@ -1,3 +1,6 @@
 {
-  "extends": "eslint-config-react-tracktor"
+  "extends": "eslint-config-react-tracktor",
+  "rules": {
+    "import/no-extraneous-dependencies": "off"
+  }
 }

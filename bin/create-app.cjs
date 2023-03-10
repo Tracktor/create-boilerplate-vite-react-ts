@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 const yargs = require('yargs')
-const { join } = require("path");
-const { execSync } = require("child_process");
-const { mkdirSync, rmSync, openSync, writeFileSync, close, writeSync } = require("fs");
+const {join} = require("path");
+const {execSync} = require("child_process");
+const {mkdirSync, rmSync, openSync, writeFileSync, close, writeSync} = require("fs");
 const packageJson = require('../package.json');
 
 const projectName = process.argv[2];
@@ -13,6 +13,7 @@ const repository = packageJson.repository.url;
 const AXIOS_PARAM = "axios";
 const I18NEXT_PARAM = "i18next";
 const REACT_QUERY_PARAM = "react-query";
+const REACT_ROUTER_PARAM = "react-router";
 
 if (process.argv.length < 3) {
   console.log("\x1b[31m", "You have to provide name to your app.");
@@ -69,33 +70,55 @@ const buildPackageJson = ({packageJson, folderName, argv}) => {
 
 const removeUselessFiles = () => {
   execSync("npx rimraf ./.git");
-  rmSync(join(projectPath, ".github"), { recursive: true });
-  rmSync(join(projectPath, ".circleci"), { recursive: true});
-  rmSync(join(projectPath, "bin"), { recursive: true });
-  rmSync(join(projectPath, "CHANGELOG.md"), { recursive: true });
+  rmSync(join(projectPath, ".github"), {recursive: true});
+  rmSync(join(projectPath, ".circleci"), {recursive: true});
+  rmSync(join(projectPath, "bin"), {recursive: true});
+  rmSync(join(projectPath, "CHANGELOG.md"), {recursive: true});
+  rmSync(join(projectPath, "src/types/dependencies.d.ts"), {recursive: true});
 
 
   // Remove i18next files
   if (!yargs.argv?.[I18NEXT_PARAM]) {
-    rmSync(join(projectPath, "src/config/i18next.ts"), { recursive: true });
-    rmSync(join(projectPath, "src/locales/en.ts"), { recursive: true });
-    rmSync(join(projectPath, "src/locales/fr.ts"), { recursive: true });
-    rmSync(join(projectPath, "src/types/i18next.d.ts"), { recursive: true });
+    rmSync(join(projectPath, "src/config/i18next.ts"), {recursive: true});
+    rmSync(join(projectPath, "src/locales/en.ts"), {recursive: true});
+    rmSync(join(projectPath, "src/locales/fr.ts"), {recursive: true});
+    rmSync(join(projectPath, "src/types/i18next.d.ts"), {recursive: true});
   }
 
   // Remove axios files
   if (!yargs.argv?.[AXIOS_PARAM]) {
-    rmSync(join(projectPath, "src/config/axios.ts"), { recursive: true });
+    rmSync(join(projectPath, "src/config/axios.ts"), {recursive: true});
   }
 
   // Remove react query files
   if (!yargs.argv?.[REACT_QUERY_PARAM]) {
-    rmSync(join(projectPath, "src/config/reactQuery.ts"), { recursive: true });
+    rmSync(join(projectPath, "src/config/reactQuery.ts"), {recursive: true});
+  }
+
+  // Remove react router dom files
+  if (!yargs.argv?.[REACT_ROUTER_PARAM]) {
+    rmSync(join(projectPath, "src/components/Utils/Router.tsx"), {recursive: true});
+    rmSync(join(projectPath, "src/constants/routes.ts"), {recursive: true});
+    rmSync(join(projectPath, "src/pages/Contact.tsx"), {recursive: true});
+    rmSync(join(projectPath, "src/pages/Home.tsx"), {recursive: true});
   }
 };
 
 const getAppData = () => {
   let data = [];
+  const children = yargs.argv?.[REACT_ROUTER_PARAM] ? "<Router />" : packageJson.description
+
+  if (yargs.argv?.[REACT_QUERY_PARAM]) {
+    data.push(`import { QueryClientProvider } from "@tanstack/react-query";\n`)
+  }
+
+  if (yargs.argv?.[REACT_ROUTER_PARAM]) {
+    data.push(`import Router from "@/components/Utils/Router";\n`)
+  }
+
+  if (yargs.argv?.[REACT_QUERY_PARAM]) {
+    data.push(`import reactQuery from "@/config/reactQuery";\n`)
+  }
 
   if (yargs.argv?.[AXIOS_PARAM]) {
     data.push(`import "@/config/axios";\n`)
@@ -106,17 +129,16 @@ const getAppData = () => {
   }
 
   if (yargs.argv?.[REACT_QUERY_PARAM]) {
-    data.unshift(
-      `import { QueryClientProvider } from "@tanstack/react-query";\n` +
-      `import reactQuery from "@/config/reactQuery";\n`
-    );
-
     data.push(
-      `\nconst App = () => <QueryClientProvider client={reactQuery}>${packageJson.description}</QueryClientProvider>;`
+      `\nconst App = () => (` +
+      `\n  <QueryClientProvider client={reactQuery}>` +
+      `\n    ${children}` +
+      `\n  </QueryClientProvider>` +
+      `\n);`
     )
   } else {
     const breakLine = data.length === 0 ? "" : "\n";
-    data.push(`${breakLine}const App = () => <>${packageJson.description}</>;`);
+    data.push(`${breakLine}const App = () => <>${children}</>;`);
   }
 
   data.push(`\n\nexport default App;`)
@@ -132,6 +154,28 @@ const generateAppFile = () => {
 
   writeSync(fd, buffer, 0, buffer.length, 0); //write new data
   close(fd);
+};
+
+const installDependencies = () => {
+  execSync("yarn install");
+
+  if (yargs.argv?.[AXIOS_PARAM]) {
+    execSync("yarn add axios");
+  }
+
+  if (yargs.argv?.[I18NEXT_PARAM]) {
+    execSync("yarn add i18next");
+    execSync("yarn add react-i18next");
+    execSync("yarn add i18next-browser-languagedetector");
+  }
+
+  if (yargs.argv?.[REACT_QUERY_PARAM]) {
+    execSync("yarn add @tanstack/react-query");
+  }
+
+  if (yargs.argv?.[REACT_ROUTER_PARAM]) {
+    execSync("yarn add react-router-dom");
+  }
 };
 
 const main = async () => {
@@ -152,7 +196,7 @@ const main = async () => {
 
     // Install dependencies
     console.log("\x1b[36m%s\x1b[0m", "Installing dependencies...");
-    execSync("yarn install");
+    installDependencies();
 
     // Generate App.tsx
     console.log("\x1b[36m%s\x1b[0m", "Generate App.tsx...");

@@ -27,16 +27,16 @@ npx create-boilerplate-vite-react-ts YOUR_APP_NAME
 
 ## Optional params
 
-You can add some params to install automatically 
-popular libraries with sweet config.
+You can add some params to install and configure automatically
+some popular libraries.
 
-| Name           | Description                  |
-|----------------|------------------------------|
-| `axios`        | Install axios library        |
-| `i18next`      | Install i18next library      |
-| `react-query`  | Install react query library  |
-| `react-router` | Install react router library |
-
+| Name           | Description                  | Documentation                                   |
+|----------------|------------------------------|-------------------------------------------------|
+| `axios`        | Install axios library        | [axios](https://axios-http.com/fr/docs/intro)   |
+| `i18next`      | Install i18next library      | [i18next](https://www.i18next.com)              |
+| `react-query`  | Install react query library  | [react-query](https://react-query.tanstack.com) |
+| `react-router` | Install react router library | [react-router](https://reactrouter.com)         |
+<br>
 example:
 
 ```console
@@ -61,17 +61,25 @@ npx create-boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
         └── Surfaces
         └── Template
         └── Utils
+            Router.tsx (optional if react-router is installed)
     └── config
+        axios.ts (optional if axios is installed)
+        i18next.ts (optional if i18next is installed)
+        react-query.ts (optional if react-query is installed)
         setupTests.ts
     └── constants
+        routes.ts (optional if react-router is installed)
     └── context
     └── features
     └── hooks
     └── locales
     └── pages
+        Contact.tsx (optional if react-router is installed)
+        Home.tsx (optional if react-router is installed)
     └── services
     └── stores
     └── types
+        i18next.d.ts (optional if i18next is installed)
         vite-env.d.ts
     └── utils
     App.test.tsx
