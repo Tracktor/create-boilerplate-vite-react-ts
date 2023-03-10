@@ -1,3 +1,3 @@
-const App = () => <h1>Boilerplate Vite React TS</h1>;
+const App = () => <>Boilerplate Vite React TS</>;
 
 export default App;

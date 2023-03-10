@@ -1,14 +1,43 @@
 # create-boilerplate-vite-react-ts
 
-Create a Vite React TS apps with set of Tracktor configuration.
+> Create quickly a skeleton of `Vite React TypeScript`
+application with amazing configuration.
 
 - [Quick Start](#Quick-Start)
+- [Params](#Params)
 - [Files structure](#Files-structure)
+
+## Configuration included
+
+- 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
+- ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
+- 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
+- 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
+  utilities
+- 🐶 **[Husky](https://typicode.github.io/husky)** - Modern native git hooks made easy
+- 📐 **[ESLint](https://eslint.org)** - Code analyzer
+- 🚜 **[eslint-config-react-tracktor](https://eslint.org)** - Simply the best eslint config for React
 
 ## Quick Start
 
 ```console
-npx create-boilerplate-vite-react-ts YOUR_PROJECT_NAME
+npx create-boilerplate-vite-react-ts YOUR_APP_NAME
+```
+
+## Optional params
+
+You can add some params to install automatically libraries with sweet config.
+
+| Name          | Description                 |
+|---------------|-----------------------------|
+| `axios`       | Install axios library       |
+| `i18next`     | Install i18next library     |
+| `react-query` | Install react-query library |
+
+example:
+
+```console
+npx create-boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
 ```
 
 ## Files structure

@@ -1,4 +1,5 @@
 # [Versions](https://github.com/Tracktor/eslint-config-react-tracktor/releases)
 
-## v1.12.0
-- add unlicensed rule
+## v2.0.0
+- Add possibility to add parameters for install third-party library like axios, i18next, ...
+- Upgrade dependencies
