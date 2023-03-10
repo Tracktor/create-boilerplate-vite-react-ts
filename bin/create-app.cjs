@@ -113,7 +113,8 @@ const getAppData = () => {
       `const App = () => <QueryClientProvider client={reactQuery}>${packageJson.description}</QueryClientProvider>;`
     )
   } else {
-    data.push(`const App = () => <>${packageJson.description}</>;`);
+    const breakLine = data.length === 0 ? "" : "\n";
+    data.push(`${breakLine}const App = () => <>${packageJson.description}</>;`);
   }
 
   data.push(`\n\nexport default App;`)

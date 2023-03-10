@@ -3,7 +3,7 @@
   "description": "Tracktor boilerplate vite react ts",
   "private": false,
   "license": "ISC",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "type": "module",
   "repository": {
     "url": "https://github.com/Tracktor/create-boilerplate-vite-react-ts"
