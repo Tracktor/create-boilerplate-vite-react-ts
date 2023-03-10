@@ -106,11 +106,13 @@ const getAppData = () => {
   }
 
   if (yargs.argv?.[REACT_QUERY_PARAM]) {
-    data.push(
+    data.unshift(
       `import { QueryClientProvider } from "@tanstack/react-query";\n` +
-      `import reactQuery from "@/config/reactQuery";\n\n` +
+      `import reactQuery from "@/config/reactQuery";\n`
+    );
 
-      `const App = () => <QueryClientProvider client={reactQuery}>${packageJson.description}</QueryClientProvider>;`
+    data.push(
+      `\nconst App = () => <QueryClientProvider client={reactQuery}>${packageJson.description}</QueryClientProvider>;`
     )
   } else {
     const breakLine = data.length === 0 ? "" : "\n";

@@ -3,11 +3,12 @@
 > Create quickly a skeleton of `Vite React TypeScript`
 application with amazing configuration.
 
+- [Features included](#Features-included)
 - [Quick Start](#Quick-Start)
-- [Params](#Params)
+- [Optional params](#Optional-params)
 - [Files structure](#Files-structure)
 
-## Configuration included
+## Features included
 
 - 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
 - ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
@@ -26,13 +27,15 @@ npx create-boilerplate-vite-react-ts YOUR_APP_NAME
 
 ## Optional params
 
-You can add some params to install automatically libraries with sweet config.
+You can add some params to install automatically 
+popular libraries with sweet config.
 
-| Name          | Description                 |
-|---------------|-----------------------------|
-| `axios`       | Install axios library       |
-| `i18next`     | Install i18next library     |
-| `react-query` | Install react-query library |
+| Name           | Description                  |
+|----------------|------------------------------|
+| `axios`        | Install axios library        |
+| `i18next`      | Install i18next library      |
+| `react-query`  | Install react query library  |
+| `react-router` | Install react router library |
 
 example:
 

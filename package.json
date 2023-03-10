@@ -3,7 +3,7 @@
   "description": "Tracktor boilerplate vite react ts",
   "private": false,
   "license": "ISC",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "type": "module",
   "repository": {
     "url": "https://github.com/Tracktor/create-boilerplate-vite-react-ts"
@@ -15,7 +15,7 @@
     "coverage": "vitest run --coverage",
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:test": "node bin/create-app.cjs BUILD_TEST --axios --i18next --react-query",
+    "create": "node bin/create-app.cjs dist --axios --i18next",
     "lint": "eslint . --max-warnings=0 && tsc --noEmit",
     "preview": "vite preview",
     "test": "yarn lint && vitest",
