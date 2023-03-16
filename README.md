@@ -1,5 +1,7 @@
 # create-boilerplate-vite-react-ts
 
+[![npm version](https://badge.fury.io/js/create-boilerplate-vite-react-ts.svg)](https://badge.fury.io/js/create-boilerplate-vite-react-ts)
+
 > Create quickly a skeleton of `Vite React TypeScript`
 application with amazing configuration.
 
