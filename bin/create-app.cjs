@@ -1,14 +1,17 @@
 #!/usr/bin/env node
-const yargs = require('yargs')
+const yargs = require("yargs")
 const {join} = require("path");
 const {execSync} = require("child_process");
 const {mkdirSync, rmSync, openSync, writeFileSync, close, writeSync} = require("fs");
-const packageJson = require('../package.json');
+const packageJson = require("../package.json");
+const eslintrcJson = require("../.eslintrc.json");
 
 const projectName = process.argv[2];
 const currentPath = process.cwd();
 const projectPath = join(currentPath, projectName);
 const repository = packageJson.repository.url;
+
+const ENCODED_FILE = "utf8";
 
 const AXIOS_PARAM = "axios";
 const I18NEXT_PARAM = "i18next";
@@ -75,7 +78,13 @@ const buildPackageJson = ({packageJson, folderName, argv}) => {
     }
   }
 
-  writeFileSync(`${process.cwd()}/package.json`, JSON.stringify(newPackage, null, 2), 'utf8');
+  writeFileSync(`${process.cwd()}/package.json`, JSON.stringify(newPackage, null, 2), ENCODED_FILE);
+};
+
+const buildEslintJson = (eslintrcJson) => {
+  const {rules, ...eslintrcJsonFilter} = eslintrcJson
+
+  writeFileSync(`${process.cwd()}/.eslintrc.json`, JSON.stringify(eslintrcJsonFilter, null, 2), ENCODED_FILE);
 };
 
 const removeUselessFiles = () => {
@@ -158,7 +167,7 @@ const getAppData = () => {
 
 const generateAppFile = () => {
   const file = "src/App.tsx";
-  const fd = openSync(file, 'w+');
+  const fd = openSync(file, "w+");
   const data = getAppData();
   const buffer = Buffer.from(data);
 
@@ -190,6 +199,7 @@ const installDependencies = () => {
 
 const main = async () => {
   try {
+    // Clear npx cache
     console.log("\x1b[36m%s\x1b[0m", "Clear npx cache...");
     execSync("rm -rf ~/.npm/_npx");
 
@@ -201,8 +211,9 @@ const main = async () => {
     process.chdir(projectPath);
 
     // Build package.json
-    console.log("\x1b[36m%s\x1b[0m", "Create package.json...");
+    console.log("\x1b[36m%s\x1b[0m", "Create package.json & .eslintrc.json...");
     buildPackageJson({packageJson, projectName, argv: yargs.argv});
+    buildEslintJson(eslintrcJson);
 
     // Install dependencies
     console.log("\x1b[36m%s\x1b[0m", "Installing dependencies...");
@@ -218,7 +229,7 @@ const main = async () => {
 
     // Create empty README.md
     console.log("\x1b[36m%s\x1b[0m", "Create empty README.md...");
-    openSync("README.md", 'w');
+    openSync("README.md", "w");
 
     // Done
     console.log("\x1b[32m%s\x1b[0m", "Your application is ready, enjoy to use !");
