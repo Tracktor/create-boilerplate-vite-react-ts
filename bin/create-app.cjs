@@ -18,10 +18,19 @@ const I18NEXT_PARAM = "i18next";
 const REACT_QUERY_PARAM = "react-query";
 const REACT_ROUTER_PARAM = "react-router";
 
+function pkgFromUserAgent(userAgent) {
+  if (!userAgent) return undefined;
+  const pkgSpec = userAgent.split(' ')[0];
+  return  pkgSpec.split('/')[0];
+}
+
+const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
+const pkgManager = pkgInfo ? pkgInfo : 'npm';
+
 if (process.argv.length < 3) {
   console.log("\x1b[31m", "You have to provide name to your app.");
   console.log("For example: ");
-  console.log("npx create-boilerplate-vite-react-ts YOUR_APP_NAME", "\x1b[0m");
+  console.log(pkgManager + " create-boilerplate-vite-react-ts YOUR_APP_NAME", "\x1b[0m");
   process.exit(1);
 }
 
@@ -93,6 +102,7 @@ const removeUselessFiles = () => {
   rmSync(join(projectPath, ".circleci"), {recursive: true});
   rmSync(join(projectPath, "bin"), {recursive: true});
   rmSync(join(projectPath, "CHANGELOG.md"), {recursive: true});
+  rmSync(join(projectPath, "yarn.lock"), {recursive: true});
   rmSync(join(projectPath, "src/types/dependencies.d.ts"), {recursive: true});
 
 
@@ -176,24 +186,26 @@ const generateAppFile = () => {
 };
 
 const installDependencies = () => {
-  execSync("yarn install");
+  const installDependency = pkgManager === "npm" ? "install" : "add";
+
+  execSync(`${pkgManager} install`);
 
   if (yargs.argv?.[AXIOS_PARAM]) {
-    execSync("yarn add axios");
+    execSync(`${pkgManager} ${installDependency} axios`);
   }
 
   if (yargs.argv?.[I18NEXT_PARAM]) {
-    execSync("yarn add i18next");
-    execSync("yarn add react-i18next");
-    execSync("yarn add i18next-browser-languagedetector");
+    execSync(`${pkgManager} ${installDependency} i18next`);
+    execSync(`${pkgManager} ${installDependency} react-i18next`);
+    execSync(`${pkgManager} ${installDependency} i18next-browser-languagedetector`);
   }
 
   if (yargs.argv?.[REACT_QUERY_PARAM]) {
-    execSync("yarn add @tanstack/react-query");
+    execSync(`${pkgManager} ${installDependency} @tanstack/react-query`);
   }
 
   if (yargs.argv?.[REACT_ROUTER_PARAM]) {
-    execSync("yarn add react-router-dom");
+    execSync(`${pkgManager} ${installDependency} react-router-dom`);
   }
 };
 
@@ -215,6 +227,10 @@ const main = async () => {
     buildPackageJson({packageJson, projectName, argv: yargs.argv});
     buildEslintJson(eslintrcJson);
 
+    // Remove useless files
+    console.log("\x1b[36m%s\x1b[0m", "Clean up unused file...");
+    removeUselessFiles();
+
     // Install dependencies
     console.log("\x1b[36m%s\x1b[0m", "Installing dependencies...");
     installDependencies();
@@ -222,10 +238,6 @@ const main = async () => {
     // Generate App.tsx
     console.log("\x1b[36m%s\x1b[0m", "Generate App.tsx...");
     generateAppFile();
-
-    // Remove useless files
-    console.log("\x1b[36m%s\x1b[0m", "Clean up unused file...");
-    removeUselessFiles();
 
     // Create empty README.md
     console.log("\x1b[36m%s\x1b[0m", "Create empty README.md...");
