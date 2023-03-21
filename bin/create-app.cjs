@@ -36,7 +36,7 @@ try {
   process.exit(1);
 }
 
-const buildPackageJson = ({packageJson, folderName, argv}) => {
+const buildPackageJson = ({packageJson, argv}) => {
   // Filters package.json
   const {
     bin,
@@ -47,7 +47,7 @@ const buildPackageJson = ({packageJson, folderName, argv}) => {
     version,
     description,
     ...packageJsonFilter
-  } = packageJson
+  } = packageJson;
 
   // Filters dependencies
   const {
@@ -58,7 +58,7 @@ const buildPackageJson = ({packageJson, folderName, argv}) => {
     [!argv?.[I18NEXT_PARAM] && "i18next-browser-languagedetector"]: i18nextBrowserLanguageDetectorRemoved,
     [!argv?.[REACT_QUERY_PARAM] && "@tanstack/react-query"]: reactQueryRemoved,
     ...dependenciesFilter
-  } = packageJson.dependencies
+  } = packageJson.dependencies;
 
   // Filters scripts
   const {
@@ -68,7 +68,7 @@ const buildPackageJson = ({packageJson, folderName, argv}) => {
 
   const newPackage = {
     ...packageJsonFilter,
-    name: folderName,
+    name: argv._[0],
     license: "UNLICENSED",
     dependencies: {
       ...dependenciesFilter,
@@ -76,7 +76,7 @@ const buildPackageJson = ({packageJson, folderName, argv}) => {
     scripts: {
       ...scriptFilter,
     }
-  }
+  };
 
   writeFileSync(`${process.cwd()}/package.json`, JSON.stringify(newPackage, null, 2), ENCODED_FILE);
 };
@@ -212,7 +212,7 @@ const main = async () => {
 
     // Build package.json
     console.log("\x1b[36m%s\x1b[0m", "Create package.json & .eslintrc.json...");
-    buildPackageJson({packageJson, projectName, argv: yargs.argv});
+    buildPackageJson({packageJson, argv: yargs.argv});
     buildEslintJson(eslintrcJson);
 
     // Install dependencies
