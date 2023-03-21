@@ -2,7 +2,7 @@
 const yargs = require("yargs")
 const {join} = require("path");
 const {execSync} = require("child_process");
-const {mkdirSync, rmSync, openSync, writeFileSync, close, writeSync} = require("fs");
+const {mkdirSync, rmSync, openSync, writeFileSync, close, writeSync, appendFileSync} = require("fs");
 const packageJson = require("../package.json");
 const eslintrcJson = require("../.eslintrc.json");
 
@@ -87,6 +87,25 @@ const buildEslintJson = (eslintrcJson) => {
   writeFileSync(`${process.cwd()}/.eslintrc.json`, JSON.stringify(eslintrcJsonFilter, null, 2), ENCODED_FILE);
 };
 
+const buildSetupTest = () => {
+
+  if (yargs.argv?.[I18NEXT_PARAM]) {
+    const data = `\n` +
+      `// Mock translation` + `\n` +
+      `vi.mock("react-i18next", () => ({` + `\n` +
+      `  useTranslation: () => ({` + `\n` +
+      `    i18n: {` + `\n` +
+      `      changeLanguage: () => new Promise(() => {}),` + `\n` +
+      `    },` + `\n` +
+      `    t: (str: string) => str,` + `\n` +
+      `  }),` + `\n` +
+      `}));`;
+
+    appendFileSync("src/config/setupTests.ts", data);
+  }
+};
+
+
 const removeUselessFiles = () => {
   execSync("npx rimraf ./.git");
   rmSync(join(projectPath, ".github"), {recursive: true});
@@ -165,7 +184,7 @@ const getAppData = () => {
   return data.join("") + "\n";
 }
 
-const generateAppFile = () => {
+const buildAppFile = () => {
   const file = "src/App.tsx";
   const fd = openSync(file, "w+");
   const data = getAppData();
@@ -210,18 +229,20 @@ const main = async () => {
     // Change directory
     process.chdir(projectPath);
 
-    // Build package.json
+    // Create package.json & .eslintrc.json
     console.log("\x1b[36m%s\x1b[0m", "Create package.json & .eslintrc.json...");
     buildPackageJson({packageJson, argv: yargs.argv});
-    buildEslintJson(eslintrcJson);
+
 
     // Install dependencies
     console.log("\x1b[36m%s\x1b[0m", "Installing dependencies...");
     installDependencies();
 
-    // Generate App.tsx
-    console.log("\x1b[36m%s\x1b[0m", "Generate App.tsx...");
-    generateAppFile();
+    // Generate Files.tsx
+    console.log("\x1b[36m%s\x1b[0m", "Generate Files...");
+    buildAppFile();
+    buildEslintJson(eslintrcJson);
+    buildSetupTest();
 
     // Remove useless files
     console.log("\x1b[36m%s\x1b[0m", "Clean up unused file...");
