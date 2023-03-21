@@ -30,7 +30,7 @@ const pkgManager = pkgInfo ? pkgInfo : 'npm';
 if (process.argv.length < 3) {
   console.log("\x1b[31m", "You have to provide name to your app.");
   console.log("For example: ");
-  console.log(pkgManager + " create-boilerplate-vite-react-ts YOUR_APP_NAME", "\x1b[0m");
+  console.log(pkgManager + " create boilerplate-vite-react-ts YOUR_APP_NAME", "\x1b[0m");
   process.exit(1);
 }
 
@@ -121,7 +121,6 @@ const removeUselessFiles = () => {
   rmSync(join(projectPath, ".circleci"), {recursive: true});
   rmSync(join(projectPath, "bin"), {recursive: true});
   rmSync(join(projectPath, "CHANGELOG.md"), {recursive: true});
-  rmSync(join(projectPath, "yarn.lock"), {recursive: true});
   rmSync(join(projectPath, "src/types/dependencies.d.ts"), {recursive: true});
 
 
@@ -205,6 +204,9 @@ const buildAppFile = () => {
 };
 
 const installDependencies = () => {
+  // remove lock file before install, user don't need it
+  rmSync(join(projectPath, "yarn.lock"), {recursive: true});
+
   const installDependency = pkgManager === "npm" ? "install" : "add";
 
   execSync(`${pkgManager} install`);
@@ -246,10 +248,6 @@ const main = async () => {
     buildPackageJson({packageJson, argv: yargs.argv});
 
 
-    // Remove useless files
-    console.log("\x1b[36m%s\x1b[0m", "Clean up unused file...");
-    removeUselessFiles();
-
     // Install dependencies
     console.log("\x1b[36m%s\x1b[0m", "Installing dependencies...");
     installDependencies();
@@ -259,6 +257,10 @@ const main = async () => {
     buildAppFile();
     buildEslintJson(eslintrcJson);
     buildSetupTest();
+
+    // Remove useless files
+    console.log("\x1b[36m%s\x1b[0m", "Clean up unused file...");
+    removeUselessFiles();
 
     // Create empty README.md
     console.log("\x1b[36m%s\x1b[0m", "Create empty README.md...");

@@ -51,7 +51,7 @@ some popular libraries.
 example:
 
 ```console
-npx create-boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
+npm create boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
 ```
 
 ## Files structure
