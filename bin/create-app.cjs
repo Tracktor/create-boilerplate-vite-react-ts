@@ -6,43 +6,43 @@ const {mkdirSync, rmSync, openSync, writeFileSync, close, writeSync, appendFileS
 const packageJson = require("../package.json");
 const eslintrcJson = require("../.eslintrc.json");
 
-const projectName = process.argv[2];
-const currentPath = process.cwd();
-const projectPath = join(currentPath, projectName);
-const repository = packageJson.repository.url;
-
 const ENCODED_FILE = "utf8";
 
+const PROJECT_NAME = process.argv[2];
+const CURRENT_PATH = process.cwd();
+const PROJECT_PATH = join(CURRENT_PATH, PROJECT_NAME);
+const REPOSITORY_URL = packageJson.repository.url;
+const PACKAGE_INFO = pkgFromUserAgent(process.env.npm_config_user_agent);
+const PACKAGE_MANAGER = PACKAGE_INFO ? PACKAGE_INFO : 'npm';
+
+// Optional parameters
 const AXIOS_PARAM = "axios";
 const I18NEXT_PARAM = "i18next";
 const REACT_QUERY_PARAM = "react-query";
 const REACT_ROUTER_PARAM = "react-router";
 
-function pkgFromUserAgent(userAgent) {
-  if (!userAgent) return undefined;
-  const pkgSpec = userAgent.split(' ')[0];
-  return  pkgSpec.split('/')[0];
-}
-
-const pkgInfo = pkgFromUserAgent(process.env.npm_config_user_agent);
-const pkgManager = pkgInfo ? pkgInfo : 'npm';
-
 if (process.argv.length < 3) {
   console.log("\x1b[31m", "You have to provide name to your app.");
   console.log("For example: ");
-  console.log(pkgManager + " create boilerplate-vite-react-ts YOUR_APP_NAME", "\x1b[0m");
+  console.log(PACKAGE_MANAGER + " create boilerplate-vite-react-ts YOUR_APP_NAME", "\x1b[0m");
   process.exit(1);
 }
 
 try {
-  mkdirSync(projectPath);
+  mkdirSync(PROJECT_PATH);
 } catch (error) {
   if (error?.code === "EEXIST") {
-    console.log(`The file ${projectName} already exist in the current directory, please give it another name.`);
+    console.log(`The file ${PROJECT_NAME} already exist in the current directory, please give it another name.`);
   } else {
     console.log(error);
   }
   process.exit(1);
+}
+
+function pkgFromUserAgent(userAgent) {
+  if (!userAgent) return undefined;
+  const pkgSpec = userAgent.split(' ')[0];
+  return  pkgSpec.split('/')[0];
 }
 
 const buildPackageJson = ({packageJson, argv}) => {
@@ -117,43 +117,43 @@ const buildSetupTest = () => {
 
 const removeUselessFiles = () => {
   execSync("npx rimraf ./.git");
-  rmSync(join(projectPath, ".github"), {recursive: true});
-  rmSync(join(projectPath, ".circleci"), {recursive: true});
-  rmSync(join(projectPath, "bin"), {recursive: true});
-  rmSync(join(projectPath, "CHANGELOG.md"), {recursive: true});
-  rmSync(join(projectPath, "src/types/dependencies.d.ts"), {recursive: true});
+  rmSync(join(PROJECT_PATH, ".github"), {recursive: true});
+  rmSync(join(PROJECT_PATH, ".circleci"), {recursive: true});
+  rmSync(join(PROJECT_PATH, "bin"), {recursive: true});
+  rmSync(join(PROJECT_PATH, "CHANGELOG.md"), {recursive: true});
+  rmSync(join(PROJECT_PATH, "src/types/dependencies.d.ts"), {recursive: true});
 
 
   // Remove i18next files
   if (!yargs.argv?.[I18NEXT_PARAM]) {
-    rmSync(join(projectPath, "src/config/i18next.ts"), {recursive: true});
-    rmSync(join(projectPath, "src/locales/en.ts"), {recursive: true});
-    rmSync(join(projectPath, "src/locales/fr.ts"), {recursive: true});
-    rmSync(join(projectPath, "src/types/i18next.d.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/config/i18next.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/locales/en.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/locales/fr.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/types/i18next.d.ts"), {recursive: true});
   }
 
   // Remove axios files
   if (!yargs.argv?.[AXIOS_PARAM]) {
-    rmSync(join(projectPath, "src/config/axios.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/config/axios.ts"), {recursive: true});
   }
 
   // Remove react query files
   if (!yargs.argv?.[REACT_QUERY_PARAM]) {
-    rmSync(join(projectPath, "src/config/reactQuery.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/config/reactQuery.ts"), {recursive: true});
   }
 
   // Remove react router dom files
   if (!yargs.argv?.[REACT_ROUTER_PARAM]) {
-    rmSync(join(projectPath, "src/components/Utils/Router.tsx"), {recursive: true});
-    rmSync(join(projectPath, "src/constants/routes.ts"), {recursive: true});
-    rmSync(join(projectPath, "src/pages/Contact.tsx"), {recursive: true});
-    rmSync(join(projectPath, "src/pages/Home.tsx"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/components/Utils/Router.tsx"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/constants/routes.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/pages/Contact.tsx"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/pages/Home.tsx"), {recursive: true});
   }
 };
 
 const getAppData = () => {
   let data = [];
-  const children = yargs.argv?.[REACT_ROUTER_PARAM] ? "<Router />" : packageJson.description
+  const children = yargs.argv?.[REACT_ROUTER_PARAM] ? "<Router />" : `<h1>${packageJson.name}</h1>`;
 
   if (yargs.argv?.[REACT_QUERY_PARAM]) {
     data.push(`import { QueryClientProvider } from "@tanstack/react-query";\n`)
@@ -185,7 +185,7 @@ const getAppData = () => {
     )
   } else {
     const breakLine = data.length === 0 ? "" : "\n";
-    data.push(`${breakLine}const App = () => <>${children}</>;`);
+    data.push(`${breakLine}const App = () => ${children};`);
   }
 
   data.push(`\n\nexport default App;`)
@@ -205,48 +205,47 @@ const buildAppFile = () => {
 
 const installDependencies = () => {
   // remove lock file before install, user don't need it
-  rmSync(join(projectPath, "yarn.lock"), {recursive: true});
+  rmSync(join(PROJECT_PATH, "yarn.lock"), {recursive: true});
 
-  const installDependency = pkgManager === "npm" ? "install" : "add";
+  const installDependency = PACKAGE_MANAGER === "npm" ? "install" : "add";
 
-  execSync(`${pkgManager} install`);
+  execSync(`${PACKAGE_MANAGER} install`);
 
   if (yargs.argv?.[AXIOS_PARAM]) {
-    execSync(`${pkgManager} ${installDependency} axios`);
+    execSync(`${PACKAGE_MANAGER} ${installDependency} axios`);
   }
 
   if (yargs.argv?.[I18NEXT_PARAM]) {
-    execSync(`${pkgManager} ${installDependency} i18next`);
-    execSync(`${pkgManager} ${installDependency} react-i18next`);
-    execSync(`${pkgManager} ${installDependency} i18next-browser-languagedetector`);
+    execSync(`${PACKAGE_MANAGER} ${installDependency} i18next`);
+    execSync(`${PACKAGE_MANAGER} ${installDependency} react-i18next`);
+    execSync(`${PACKAGE_MANAGER} ${installDependency} i18next-browser-languagedetector`);
   }
 
   if (yargs.argv?.[REACT_QUERY_PARAM]) {
-    execSync(`${pkgManager} ${installDependency} @tanstack/react-query`);
+    execSync(`${PACKAGE_MANAGER} ${installDependency} @tanstack/react-query`);
   }
 
   if (yargs.argv?.[REACT_ROUTER_PARAM]) {
-    execSync(`${pkgManager} ${installDependency} react-router-dom`);
+    execSync(`${PACKAGE_MANAGER} ${installDependency} react-router-dom`);
   }
 };
 
 const main = async () => {
   try {
     // Clear npx cache
-    console.log("\x1b[36m%s\x1b[0m", "Clear npx cache...");
+    console.log("\n\x1b[36m%s\x1b[0m", "Clear npx cache...");
     execSync("rm -rf ~/.npm/_npx");
 
     // Download files
     console.log("\x1b[36m%s\x1b[0m", "Downloading files...");
-    execSync(`git clone --depth 1 ${repository} ${projectPath}`);
+    execSync(`git clone --depth 1 ${REPOSITORY_URL} ${PROJECT_PATH}`);
 
     // Change directory
-    process.chdir(projectPath);
+    process.chdir(PROJECT_PATH);
 
     // Create package.json & .eslintrc.json
     console.log("\x1b[36m%s\x1b[0m", "Create package.json & .eslintrc.json...");
     buildPackageJson({packageJson, argv: yargs.argv});
-
 
     // Install dependencies
     console.log("\x1b[36m%s\x1b[0m", "Installing dependencies...");

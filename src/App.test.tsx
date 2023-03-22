@@ -4,7 +4,7 @@ import App from "@/App";
 
 test("render <App />", () => {
   const { getByText } = render(<App />);
-  const title = getByText("Boilerplate Vite React TS");
+  const title = getByText("create-boilerplate-vite-react-ts");
 
   expect(title).toBeInTheDocument();
 });

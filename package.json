@@ -1,9 +1,9 @@
 {
   "name": "create-boilerplate-vite-react-ts",
-  "description": "Tracktor boilerplate vite react ts",
+  "description": "Start a Vite React TypeScript project in few second !",
   "private": false,
   "license": "ISC",
-  "version": "2.5.0",
+  "version": "2.5.1",
   "type": "module",
   "repository": {
     "url": "https://github.com/Tracktor/create-boilerplate-vite-react-ts"
@@ -46,6 +46,8 @@
     "vite create app",
     "react router",
     "i18next",
-    "react-query"
+    "react-query",
+    "javascript",
+    "typescript"
   ]
 }
