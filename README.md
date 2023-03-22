@@ -23,8 +23,17 @@ application with amazing configuration.
 
 ## Quick Start
 
+**npm:**
 ```console
-npx create-boilerplate-vite-react-ts YOUR_APP_NAME
+npm create boilerplate-vite-react-ts YOUR_APP_NAME
+```
+**Yarn**:
+```console
+yarn create boilerplate-vite-react-ts YOUR_APP_NAME
+```
+**pnpm**:
+```console
+pnpm create boilerplate-vite-react-ts YOUR_APP_NAME
 ```
 
 ## Optional params
@@ -42,7 +51,7 @@ some popular libraries.
 example:
 
 ```console
-npx create-boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
+npm create boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
 ```
 
 ## Files structure
@@ -96,5 +105,5 @@ README.md
 tsconfig.json
 tsconfig.node.json
 vite.config.ts
-yarn.lock
+[lockfile]
 ```
