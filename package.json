@@ -3,10 +3,15 @@
   "description": "Start a Vite React TypeScript project in few second !",
   "private": false,
   "license": "ISC",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "type": "module",
+  "author": "Mickaël Austoni",
+  "homepage": "https://github.com/Tracktor/create-boilerplate-vite-react-ts#readme",
   "repository": {
     "url": "https://github.com/Tracktor/create-boilerplate-vite-react-ts"
+  },
+  "bugs": {
+    "url": "https://github.com/Tracktor/create-boilerplate-vite-react-ts/issues"
   },
   "bin": {
     "create-boilerplate-vite-react-ts": "bin/create-app.cjs"

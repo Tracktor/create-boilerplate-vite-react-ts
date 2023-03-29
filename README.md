@@ -70,7 +70,6 @@ npm create boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
         └── Layout
         └── Navigation
         └── Surfaces
-        └── Template
         └── Utils
             Router.tsx (optional if react-router is installed)
     └── config
