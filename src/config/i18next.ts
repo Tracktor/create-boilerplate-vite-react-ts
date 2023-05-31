@@ -32,7 +32,9 @@ i18n
       return;
     }
 
-    document.documentElement.setAttribute("lang", i18n.resolvedLanguage);
+    if (i18n.resolvedLanguage) {
+      document.documentElement.setAttribute("lang", i18n.resolvedLanguage);
+    }
   });
 
 i18n.on("languageChanged", (lng: string) => {
