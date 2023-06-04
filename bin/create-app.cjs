@@ -101,14 +101,18 @@ const buildSetupTest = () => {
   if (yargs.argv?.[I18NEXT_PARAM]) {
     const data = `\n` +
       `// Mock translation` + `\n` +
-      `vi.mock("react-i18next", () => ({` + `\n` +
-      `  useTranslation: () => ({` + `\n` +
-      `    i18n: {` + `\n` +
-      `      changeLanguage: () => new Promise(() => {}),` + `\n` +
-      `    },` + `\n` +
-      `    t: (str: string) => str,` + `\n` +
-      `  }),` + `\n` +
-      `}));`;
+      `vi.mock("react-i18next", async () => {` + `\n` +
+      `  const actual: any = await vi.importActual("react-i18next");` + `\n` +
+      `  return {` + `\n` +
+      `    ...actual,` + `\n` +
+      `    useTranslation: () => ({` + `\n` +
+      `      i18n: {` + `\n` +
+      `        changeLanguage: () => new Promise(() => {}),` + `\n` +
+      `      },` + `\n` +
+      `      t: (str: string) => str,` + `\n` +
+      `    }),` + `\n` +
+      `  };` + `\n` +
+      `});`;
 
     appendFileSync("src/config/setupTests.ts", data);
   }
