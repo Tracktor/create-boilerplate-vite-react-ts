@@ -73,10 +73,10 @@ npm create boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
         └── Utils
             Router.tsx (optional if react-router is installed)
     └── config
-        axios.ts (optional if axios is installed)
-        i18next.ts (optional if i18next is installed)
-        react-query.ts (optional if react-query is installed)
-        setupTests.ts
+        axios.config.ts (optional if axios is installed)
+        i18next.config.ts (optional if i18next is installed)
+        reactQuery.config.ts (optional if react-query is installed)
+        test.config.ts
     └── constants
         routes.ts (optional if react-router is installed)
     └── context

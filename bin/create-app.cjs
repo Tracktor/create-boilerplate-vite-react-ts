@@ -114,7 +114,7 @@ const buildSetupTest = () => {
       `  };` + `\n` +
       `});`;
 
-    appendFileSync("src/config/setupTests.ts", data);
+    appendFileSync("src/config/test.config.ts", data);
   }
 };
 
@@ -130,7 +130,7 @@ const removeUselessFiles = () => {
 
   // Remove i18next files
   if (!yargs.argv?.[I18NEXT_PARAM]) {
-    rmSync(join(PROJECT_PATH, "src/config/i18next.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/config/i18next.config.ts"), {recursive: true});
     rmSync(join(PROJECT_PATH, "src/locales/en.ts"), {recursive: true});
     rmSync(join(PROJECT_PATH, "src/locales/fr.ts"), {recursive: true});
     rmSync(join(PROJECT_PATH, "src/types/i18next.d.ts"), {recursive: true});
@@ -138,12 +138,12 @@ const removeUselessFiles = () => {
 
   // Remove axios files
   if (!yargs.argv?.[AXIOS_PARAM]) {
-    rmSync(join(PROJECT_PATH, "src/config/axios.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/config/axios.config.ts"), {recursive: true});
   }
 
   // Remove react query files
   if (!yargs.argv?.[REACT_QUERY_PARAM]) {
-    rmSync(join(PROJECT_PATH, "src/config/reactQuery.ts"), {recursive: true});
+    rmSync(join(PROJECT_PATH, "src/config/reactQuery.config.ts"), {recursive: true});
   }
 
   // Remove react router dom files
@@ -168,21 +168,21 @@ const getAppData = () => {
   }
 
   if (yargs.argv?.[REACT_QUERY_PARAM]) {
-    data.push(`import reactQuery from "@/config/reactQuery";\n`)
+    data.push(`import reactQueryConfig from "@/config/reactQuery.config";\n`)
   }
 
   if (yargs.argv?.[AXIOS_PARAM]) {
-    data.push(`import "@/config/axios";\n`)
+    data.push(`import "@/config/axios.config";\n`)
   }
 
   if (yargs.argv?.[I18NEXT_PARAM]) {
-    data.push(`import "@/config/i18next";\n`)
+    data.push(`import "@/config/i18next.config";\n`)
   }
 
   if (yargs.argv?.[REACT_QUERY_PARAM]) {
     data.push(
       `\nconst App = () => (` +
-      `\n  <QueryClientProvider client={reactQuery}>` +
+      `\n  <QueryClientProvider client={reactQueryConfig}>` +
       `\n    ${children}` +
       `\n  </QueryClientProvider>` +
       `\n);`
