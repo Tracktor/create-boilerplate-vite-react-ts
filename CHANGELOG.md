@@ -1,6 +1,5 @@
 # [Versions](https://github.com/Tracktor/eslint-config-react-tracktor/releases)
 
 
-## v2.6.3
-- **[feat]** : rename config files
-- **[chore]** : upgrade dependencies
+## v2.6.4
+- **[feat]** : remove old config test file
