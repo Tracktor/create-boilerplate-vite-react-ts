@@ -8,8 +8,8 @@ const router = createBrowserRouter(
     <>
       <Route path={ROUTES.home} element={<Home />} />
       <Route path={ROUTES.contact} element={<Contact />} />
-    </>
-  )
+    </>,
+  ),
 );
 
 const Router = () => <RouterProvider router={router} />;

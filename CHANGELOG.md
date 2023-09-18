@@ -1,5 +1,5 @@
 # [Versions](https://github.com/Tracktor/eslint-config-react-tracktor/releases)
 
 
-## v2.6.5
-- **[fix]** : npm install
+## v2.7.0
+- **[feat]** : add [bun](https://bun.sh/) compatibility

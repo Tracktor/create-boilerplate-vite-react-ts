@@ -13,7 +13,8 @@ const CURRENT_PATH = process.cwd();
 const PROJECT_PATH = join(CURRENT_PATH, PROJECT_NAME);
 const REPOSITORY_URL = packageJson.repository.url;
 const PACKAGE_INFO = pkgFromUserAgent(process.env.npm_config_user_agent);
-const PACKAGE_MANAGER = PACKAGE_INFO ? PACKAGE_INFO : 'npm';
+
+const PACKAGE_MANAGER = PACKAGE_INFO ? PACKAGE_INFO : "npm";
 
 // Optional parameters
 const AXIOS_PARAM = "axios";
@@ -114,7 +115,7 @@ const buildSetupTest = () => {
       `  };` + `\n` +
       `});`;
 
-    appendFileSync("src/config/test.config.ts", data);
+    appendFileSync("src/test.config.ts", data);
   }
 };
 
@@ -130,20 +131,9 @@ const removeUselessFiles = () => {
 
   // Remove i18next files
   if (!yargs.argv?.[I18NEXT_PARAM]) {
-    rmSync(join(PROJECT_PATH, "src/config/i18next.config.ts"), {recursive: true});
     rmSync(join(PROJECT_PATH, "src/locales/en.ts"), {recursive: true});
     rmSync(join(PROJECT_PATH, "src/locales/fr.ts"), {recursive: true});
     rmSync(join(PROJECT_PATH, "src/types/i18next.d.ts"), {recursive: true});
-  }
-
-  // Remove axios files
-  if (!yargs.argv?.[AXIOS_PARAM]) {
-    rmSync(join(PROJECT_PATH, "src/config/axios.config.ts"), {recursive: true});
-  }
-
-  // Remove react query files
-  if (!yargs.argv?.[REACT_QUERY_PARAM]) {
-    rmSync(join(PROJECT_PATH, "src/config/reactQuery.config.ts"), {recursive: true});
   }
 
   // Remove react router dom files
@@ -208,29 +198,29 @@ const buildAppFile = () => {
 };
 
 const installDependencies = () => {
-  // remove lock file before install, user don't need it
-  rmSync(join(PROJECT_PATH, "yarn.lock"), {recursive: true});
+  // Remove lock file before install, user don't need it
+  rmSync(join(PROJECT_PATH, "bun.lockb"), {recursive: true});
 
-  const installDependency = PACKAGE_MANAGER === "npm" ? "install" : "add";
+  const installDependencyCommand = PACKAGE_MANAGER === "npm" || PACKAGE_MANAGER === "bun" ? "install" : "add";
 
   execSync(`${PACKAGE_MANAGER} install`);
 
   if (yargs.argv?.[AXIOS_PARAM]) {
-    execSync(`${PACKAGE_MANAGER} ${installDependency} axios`);
+    execSync(`${PACKAGE_MANAGER} ${installDependencyCommand} axios`);
   }
 
   if (yargs.argv?.[I18NEXT_PARAM]) {
-    execSync(`${PACKAGE_MANAGER} ${installDependency} i18next`);
-    execSync(`${PACKAGE_MANAGER} ${installDependency} react-i18next`);
-    execSync(`${PACKAGE_MANAGER} ${installDependency} i18next-browser-languagedetector`);
+    execSync(`${PACKAGE_MANAGER} ${installDependencyCommand} i18next`);
+    execSync(`${PACKAGE_MANAGER} ${installDependencyCommand} react-i18next`);
+    execSync(`${PACKAGE_MANAGER} ${installDependencyCommand} i18next-browser-languagedetector`);
   }
 
   if (yargs.argv?.[REACT_QUERY_PARAM]) {
-    execSync(`${PACKAGE_MANAGER} ${installDependency} @tanstack/react-query`);
+    execSync(`${PACKAGE_MANAGER} ${installDependencyCommand} @tanstack/react-query`);
   }
 
   if (yargs.argv?.[REACT_ROUTER_PARAM]) {
-    execSync(`${PACKAGE_MANAGER} ${installDependency} react-router-dom`);
+    execSync(`${PACKAGE_MANAGER} ${installDependencyCommand} react-router-dom`);
   }
 };
 

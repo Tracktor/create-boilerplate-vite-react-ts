@@ -5,29 +5,22 @@
 > Create quickly a skeleton of `Vite React TypeScript`
 application with amazing configuration.
 
-- [Features included](#Features-included)
 - [Quick Start](#Quick-Start)
 - [Optional params](#Optional-params)
 - [Files structure](#Files-structure)
 
-## Features included
-
-- 📦 **[React](https://fr.reactjs.org)** - v18+ with Hooks
-- ⚡️ **[Vite](https://vitejs.dev)** - Next Generation Frontend Tooling
-- 🚀 **[Vitest](https://vitest.dev)** - A Vite native unit test framework. It's fast!
-- 🛠️ **[React Testing Library](https://testing-library.com/docs/react-testing-library/intro)** - React DOM testing
-  utilities
-- 🐶 **[Husky](https://typicode.github.io/husky)** - Modern native git hooks made easy
-- 📐 **[ESLint](https://eslint.org)** - Code analyzer
-- 🚜 **[eslint-config-react-tracktor](https://www.npmjs.com/package/eslint-config-react-tracktor)** - Simply the best eslint config for React
-
 ## Quick Start
+
+**bun:**
+```console
+bun create boilerplate-vite-react-ts YOUR_APP_NAME
+```
 
 **npm:**
 ```console
 npm create boilerplate-vite-react-ts YOUR_APP_NAME
 ```
-**Yarn**:
+**yarn**:
 ```console
 yarn create boilerplate-vite-react-ts YOUR_APP_NAME
 ```
@@ -72,11 +65,6 @@ npm create boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
         └── Surfaces
         └── Utils
             Router.tsx (optional if react-router is installed)
-    └── config
-        axios.config.ts (optional if axios is installed)
-        i18next.config.ts (optional if i18next is installed)
-        reactQuery.config.ts (optional if react-query is installed)
-        test.config.ts
     └── constants
         routes.ts (optional if react-router is installed)
     └── context
@@ -94,6 +82,7 @@ npm create boilerplate-vite-react-ts YOUR_APP_NAME --axios --i18next
     └── utils
     App.test.tsx
     App.tsx
+    test.config.ts
 .eslintignore
 .eslintrc.json
 .gitignore
@@ -104,5 +93,5 @@ README.md
 tsconfig.json
 tsconfig.node.json
 vite.config.ts
-[lockfile]
+[yarn.lock|pnpm-lock.yaml|package-lock.json|bun.lockb]
 ```
