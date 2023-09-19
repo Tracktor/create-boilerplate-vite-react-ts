@@ -198,10 +198,7 @@ const buildAppFile = () => {
 };
 
 const installDependencies = () => {
-  // Remove lock file before install, user don't need it
-  rmSync(join(PROJECT_PATH, "bun.lockb"), {recursive: true});
-
-  const installDependencyCommand = PACKAGE_MANAGER === "npm" || PACKAGE_MANAGER === "bun" ? "install" : "add";
+  const installDependencyCommand = PACKAGE_MANAGER === "npm" ? "install" : "add";
 
   execSync(`${PACKAGE_MANAGER} install`);
 
@@ -222,6 +219,9 @@ const installDependencies = () => {
   if (yargs.argv?.[REACT_ROUTER_PARAM]) {
     execSync(`${PACKAGE_MANAGER} ${installDependencyCommand} react-router-dom`);
   }
+
+  // Remove lock file before install, user don't need it
+  rmSync(join(PROJECT_PATH, "bun.lockb"), {recursive: true});
 };
 
 const main = async () => {
