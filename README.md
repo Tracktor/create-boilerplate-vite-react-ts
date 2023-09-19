@@ -12,20 +12,20 @@ application with amazing configuration.
 ## Quick Start
 
 **bun:**
-```console
+```bash
 bun create boilerplate-vite-react-ts YOUR_APP_NAME
 ```
 
 **npm:**
-```console
+```bash
 npm create boilerplate-vite-react-ts YOUR_APP_NAME
 ```
 **yarn**:
-```console
+```bash
 yarn create boilerplate-vite-react-ts YOUR_APP_NAME
 ```
 **pnpm**:
-```console
+```bash
 pnpm create boilerplate-vite-react-ts YOUR_APP_NAME
 ```
 
